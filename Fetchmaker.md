@@ -5,10 +5,13 @@
 import numpy as np
 import fetchmaker
 
+
+#Determine's mean and tail length of Rottweiler's
 rottweiler_tl = fetchmaker.get_tail_length("rottweiler")
 print np.mean(rottweiler_tl)
 print np.std(rottweiler_tl)
 
+#Tests whether whippets are significantly more or less likely to be a rescue than the average dog breed.
 whippet_rescue = fetchmaker.get_is_rescue("whippet")
 num_whippet_rescues = np.count_nonzero(whippet_rescue)
 num_whippets = np.size(whippet_rescue)
@@ -39,7 +42,22 @@ color_table = [
   [np.count_nonzero(poodle_colors == "brown"), np.count_nonzero(shihtzu_colors == "brown")],
   [np.count_nonzero(poodle_colors == "gold"), np.count_nonzero(shihtzu_colors == "gold")],
   [np.count_nonzero(poodle_colors == "grey"), np.count_nonzero(shihtzu_colors == "grey")],[np.count_nonzero(poodle_colors == "white"),   np.count_nonzero(shihtzu_colors == "white")]]
-
+#Tests whether poodles and shihtzus have significantly different color breakdowns.
 chi2, pval3, dof, expected = chi2_contingency(color_table)
 print color_table
 print pval3
+
+#Tests whether chiuaua's and greyhounds have significantly different color breakdowns.
+
+chihuahua_colors = fetchmaker.get_color("chihuahua")
+greyhound_colors = fetchmaker.get_color("greyhound")
+
+color_table2 = [
+  [np.count_nonzero(chihuahua_colors == "black"), np.count_nonzero(greyhound_colors == "black")],
+  [np.count_nonzero(chihuahua_colors == "brown"), np.count_nonzero(greyhound_colors == "brown")],
+  [np.count_nonzero(chihuahua_colors == "gold"), np.count_nonzero(greyhound_colors == "gold")],
+  [np.count_nonzero(chihuahua_colors == "grey"), np.count_nonzero(greyhound_colors == "grey")],[np.count_nonzero(chihuahua_colors == "white"),   np.count_nonzero(greyhound_colors == "white")]]
+
+chi2, pval4, dof, expected = chi2_contingency(color_table2)
+print color_table
+print pval4
